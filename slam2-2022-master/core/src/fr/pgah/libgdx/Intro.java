@@ -31,6 +31,8 @@ public class Intro extends ApplicationAdapter {
 
   Texture imgfin;
 
+  CliqueSouris souris;
+
   @Override
   public void create() {
     longueurFenetre = Gdx.graphics.getWidth();
@@ -48,6 +50,7 @@ public class Intro extends ApplicationAdapter {
     initialisationSprites();
     initialiserJoueur();
     initialiserVie();
+    initialiserSouris();
   }
 
   public void initialiserJoueur() {
@@ -69,6 +72,10 @@ public class Intro extends ApplicationAdapter {
     }
   }
 
+  public void initialiserSouris() {
+    souris = new CliqueSouris();
+  }
+
   private void reinitialiserArrierePlan() {
     // Gdx.gl.glClearColor(1, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -76,35 +83,37 @@ public class Intro extends ApplicationAdapter {
 
   public void majEtat() {
 
-    for (Sprite sprite:sprites) {
+    for (Sprite sprite : sprites) {
       sprite.majEtat();
     }
 
-    joueur.majEtat();
+    // joueur.majEtat();
+
+    souris.majEtat();
   }
 
   public void dessin() {
     batch.begin();
 
-    for (Sprite sprite:sprites) {
+    for (Sprite sprite : sprites) {
       sprite.dessiner(batch);
     }
 
-    for (int i = 0; i < NB_COEUR; i++) {
-      coeurs[i].dessiner(batch);
-    }
+    // for (int i = 0; i < NB_COEUR; i++) {
+    // coeurs[i].dessiner(batch);
+    // }
 
-    joueur.dessinerJoueur(batch);
+    // joueur.dessinerJoueur(batch);
     batch.end();
   }
 
   public void majEtatJeu() {
 
     if (invincible == false) {
-      if (joueur.estEncollisionAvec(sprites)) {
+      if (souris.estEncollisionAvec(sprites) && souris.clicGauche()) {
         compteur = 120;
         invincible = true;
-        NB_COEUR = NB_COEUR - 1;
+        sprites.remove(0);
       }
     }
 
@@ -116,7 +125,7 @@ public class Intro extends ApplicationAdapter {
       invincible = false;
     }
 
-    if (NB_COEUR <= 0) {
+    if (NB_SPRITES<=0) {
       gameOver = true;
       if ((gameOver == true)) {
         Gdx.gl.glClearColor(0, 0, .25f, 1);
@@ -126,20 +135,7 @@ public class Intro extends ApplicationAdapter {
         batch.end();
       }
     }
-
   }
-
-  // public void augementeDifficulté() {
-  //   while (rajoute != 0) {
-  //     rajoute = rajoute - 1;
-  //   }
-
-  //   if (rajoute <= 0) {
-  //     NB_SPRITES = NB_SPRITES + 1;
-  //     rajoute = 1800;
-  //   }
-  // tout les 30 secondes il devrait apparaitre un nouvel ennemie
-  // }
 
   @Override
   public void render() {

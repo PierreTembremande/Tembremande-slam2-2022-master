@@ -1,5 +1,4 @@
 package fr.pgah.libgdx;
-
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -36,7 +35,6 @@ public class Vie {
         longueurImage = (int) (img.getWidth()*reduction) ;
         hauteurImage = (int) (img.getHeight()*reduction) ;
 
-        
         for (int i=0; i<NB_COEUR;i++){
             coordX[i]=i*longueurImage;
         }
@@ -51,5 +49,6 @@ public class Vie {
         }
        
     }
+
     
 }
