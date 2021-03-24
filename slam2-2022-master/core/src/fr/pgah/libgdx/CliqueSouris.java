@@ -3,16 +3,19 @@ package fr.pgah.libgdx;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 public class CliqueSouris {
-
     Rectangle rect;
 
-    int coordX=0;
-    int coordY=0;
+    Pixmap imag = new Pixmap(Gdx.files.internal("curseur.png"));
+
+    int coordX;
+    int coordY;
 
     int hauteurImage;
     int longueurImage;
@@ -24,20 +27,20 @@ public class CliqueSouris {
 
     CliqueSouris souris;
 
+    Cursor Curseur;
+
     public CliqueSouris() {
 
         longueurFenetre = Gdx.graphics.getWidth();
         hauteurFenetre = Gdx.graphics.getHeight();
 
-        facteurTailleSouris = 0.15;
-
         rect = new Rectangle(coordX, coordY, longueurImage, hauteurImage);
 
-        // longueurImage = (int) (img.getWidth() * facteurTailleSouris);
-        // hauteurImage = (int) (img.getHeight() * facteurTailleSouris);
+        coordX = longueurImage/2;
+        coordY = hauteurImage/2;
 
-        coordX = Gdx.input.getX();
-        coordY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        Gdx.graphics.setCursor(Gdx.graphics.newCursor(imag, 0, 0));
+        imag.dispose();
     }
 
     public boolean clicGauche() {
@@ -82,6 +85,7 @@ public class CliqueSouris {
 
         rect.setPosition(coordX, coordY);
     }
+    
     private void actualiser(){
         coordX = Gdx.input.getX();
         coordY = Gdx.graphics.getHeight() - Gdx.input.getY();

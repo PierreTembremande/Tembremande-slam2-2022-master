@@ -13,7 +13,7 @@ public class Intro extends ApplicationAdapter {
   SpriteBatch batch;
 
   static int NB_COEUR = 3;
-  int NB_SPRITES = 2;
+  int NB_SPRITES = 3;
   int longueurFenetre;
   int hauteurFenetre;
   int compteur;
@@ -22,6 +22,7 @@ public class Intro extends ApplicationAdapter {
   boolean gameOver;
   boolean degats;
   boolean invincible;
+  Sprite indexSprite;
 
   ArrayList<Sprite> sprites;
 
@@ -104,6 +105,7 @@ public class Intro extends ApplicationAdapter {
     // }
 
     // joueur.dessinerJoueur(batch);
+
     batch.end();
   }
 
@@ -113,7 +115,12 @@ public class Intro extends ApplicationAdapter {
       if (souris.estEncollisionAvec(sprites) && souris.clicGauche()) {
         compteur = 120;
         invincible = true;
-        sprites.remove(0);
+
+        for(int i=0; i<NB_SPRITES;i++){
+         indexSprite=sprites.get(i);
+        }
+
+        sprites.remove(indexSprite);
       }
     }
 
@@ -123,9 +130,10 @@ public class Intro extends ApplicationAdapter {
 
     if (compteur == 0 && invincible == true) {
       invincible = false;
+      NB_SPRITES=NB_SPRITES-1;
     }
 
-    if (NB_SPRITES<=0) {
+    if (sprites.isEmpty()) {
       gameOver = true;
       if ((gameOver == true)) {
         Gdx.gl.glClearColor(0, 0, .25f, 1);
