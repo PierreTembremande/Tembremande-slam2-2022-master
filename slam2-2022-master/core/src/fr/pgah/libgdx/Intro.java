@@ -1,7 +1,6 @@
 package fr.pgah.libgdx;
 
 import java.util.ArrayList;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,14 +13,15 @@ public class Intro extends ApplicationAdapter {
 
   static int NB_COEUR = 3;
   int NB_SPRITES = 3;
+  int compteur = 420;
+
   int longueurFenetre;
   int hauteurFenetre;
-  int compteur;
-  int rajoute;
+ 
 
   boolean gameOver;
-  boolean degats;
-  boolean invincible;
+  boolean stop;
+
   Sprite indexSprite;
 
   ArrayList<Sprite> sprites;
@@ -40,12 +40,9 @@ public class Intro extends ApplicationAdapter {
     hauteurFenetre = Gdx.graphics.getHeight();
 
     gameOver = false;
-    invincible = false;
-
-    rajoute = 1800;
 
     sprites = new ArrayList<Sprite>();
-    imgfin = new Texture("gameover.png");
+    imgfin = new Texture("victoire.jpg");
     batch = new SpriteBatch();
 
     initialisationSprites();
@@ -110,28 +107,13 @@ public class Intro extends ApplicationAdapter {
   }
 
   public void majEtatJeu() {
-
-    if (invincible == false) {
-      if (souris.estEncollisionAvec(sprites) && souris.clicGauche()) {
-        compteur = 120;
-        invincible = true;
-
-        for(int i=0; i<NB_SPRITES;i++){
-         indexSprite=sprites.get(i);
-        }
-
-        sprites.remove(indexSprite);
+    for (Sprite sprite : sprites) {
+      if (souris.clicGauche() && sprite.estEncollisionAvec(souris)) {
+        indexSprite = sprite;
       }
     }
 
-    if (invincible == true) {
-      compteur = compteur - 1;
-    }
-
-    if (compteur == 0 && invincible == true) {
-      invincible = false;
-      NB_SPRITES=NB_SPRITES-1;
-    }
+    sprites.remove(indexSprite);
 
     if (sprites.isEmpty()) {
       gameOver = true;
@@ -145,6 +127,21 @@ public class Intro extends ApplicationAdapter {
     }
   }
 
+  public void difficultee(){
+    if (compteur != 0 && stop == false) {
+      compteur = compteur - 1;
+    }
+    if (compteur == 0) {
+      sprites.add(new Sprite());
+      compteur = 420;
+    }
+
+    if(sprites.size()==10){
+      stop=true;
+    }
+
+  }
+
   @Override
   public void render() {
     if (gameOver == false) {
@@ -152,6 +149,7 @@ public class Intro extends ApplicationAdapter {
       majEtatJeu();
       dessin();
       majEtat();
+      difficultee();
     } else {
       majEtatJeu();
     }

@@ -127,20 +127,21 @@ public class Sprite {
 
     }
 
-    public boolean estEncollisionAvec(Joueur joueur) {
+    public boolean estEncollisionAvec(CliqueSouris souris) {
 
-        if(estEncollisionAveclui(joueur)) {
+        if(estEncollisionAveclui(souris)) {
             return true;
         }
 
         return false;
     }
 
-    private boolean estEncollisionAveclui(Joueur joueur) {
-        if (rect.overlaps(joueur.rectj)) {
+    private boolean estEncollisionAveclui(CliqueSouris souris) {
+        if (rect.overlaps(souris.rect)) {
             return true;
         } else {
             return false;
         }
     }
+    
 }

@@ -106,7 +106,7 @@ public class CliqueSouris {
         return false;
     }
 
-    private boolean estEncollisionAvec(Sprite sprite) {
+    public boolean estEncollisionAvec(Sprite sprite) {
         if (rect.overlaps(sprite.rect)) {
             return true;
         } else {
