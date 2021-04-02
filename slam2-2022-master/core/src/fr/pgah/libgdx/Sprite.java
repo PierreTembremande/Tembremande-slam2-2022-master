@@ -11,7 +11,7 @@ public class Sprite {
 
     Rectangle rect;
 
-    Texture img=new Texture("projectile.jpg");;
+    Texture img = new Texture("projectile.jpg");;
 
     int longueurFenetre;
     int hauteurFenetre;
@@ -28,7 +28,7 @@ public class Sprite {
     double facteurTaille;
 
     float rotation;
-    
+
     Random generateurAleatoire;
 
     public Object dessin;
@@ -47,7 +47,7 @@ public class Sprite {
         generateurAleatoire = new Random();
         facteurTaille = 0.35;
 
-        vitesse = 1 ;
+        vitesse = 1;
 
         rotation = 1;
         vitesseRotation = 5 + generateurAleatoire.nextInt(21);
@@ -129,7 +129,7 @@ public class Sprite {
 
     public boolean estEncollisionAvec(CliqueSouris souris) {
 
-        if(estEncollisionAveclui(souris)) {
+        if (estEncollisionAveclui(souris)) {
             return true;
         }
 
@@ -143,5 +143,5 @@ public class Sprite {
             return false;
         }
     }
-    
+
 }

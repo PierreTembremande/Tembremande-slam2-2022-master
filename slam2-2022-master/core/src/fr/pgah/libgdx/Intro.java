@@ -3,6 +3,7 @@ package fr.pgah.libgdx;
 import java.util.ArrayList;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,16 +12,24 @@ public class Intro extends ApplicationAdapter {
 
   SpriteBatch batch;
 
-  static int NB_COEUR = 3;
-  int NB_SPRITES = 3;
-  int compteur = 420;
+  static int fragile;
+  static int NB_COEUR;
+  int NB_SPRITES;
+  int compteur;
+  int duree;
+  int page;
+  int boucle;
+  
 
   int longueurFenetre;
   int hauteurFenetre;
- 
 
+  boolean rejouer;
   boolean gameOver;
+  boolean victoire;
   boolean stop;
+  boolean verif;
+  boolean invincible;
 
   Sprite indexSprite;
 
@@ -30,25 +39,48 @@ public class Intro extends ApplicationAdapter {
 
   Vie[] coeurs;
 
-  Texture imgfin;
+  Texture imgvictoire;
+  Texture imgdefaite;
 
   CliqueSouris souris;
 
+  Scenario scenario;
+
   @Override
   public void create() {
+
     longueurFenetre = Gdx.graphics.getWidth();
     hauteurFenetre = Gdx.graphics.getHeight();
 
+    NB_COEUR=3;
+    NB_SPRITES=7;
+    page=0;
+    compteur=180;
+    fragile=0;
+    boucle=0;
+
+    rejouer=true;
+    invincible = false;
     gameOver = false;
+    victoire = false;
+    stop = false;
+    verif = false;
 
     sprites = new ArrayList<Sprite>();
-    imgfin = new Texture("victoire.jpg");
+    imgvictoire = new Texture("victoire.jpg");
+    imgdefaite = new Texture("gameover.png");
     batch = new SpriteBatch();
 
     initialisationSprites();
     initialiserJoueur();
     initialiserVie();
     initialiserSouris();
+    initialiserScenario();
+
+  }
+
+  public void initialiserScenario() {
+    scenario = new Scenario();
   }
 
   public void initialiserJoueur() {
@@ -85,7 +117,7 @@ public class Intro extends ApplicationAdapter {
       sprite.majEtat();
     }
 
-    // joueur.majEtat();
+    joueur.majEtat();
 
     souris.majEtat();
   }
@@ -97,61 +129,160 @@ public class Intro extends ApplicationAdapter {
       sprite.dessiner(batch);
     }
 
-    // for (int i = 0; i < NB_COEUR; i++) {
-    // coeurs[i].dessiner(batch);
-    // }
+    for (int i = 0; i < NB_COEUR; i++) {
+      coeurs[i].dessiner(batch);
+    }
 
-    // joueur.dessinerJoueur(batch);
+    joueur.dessinerJoueur(batch);
+
+    souris.dessiner();
 
     batch.end();
   }
 
+  public void afficher() {
+    scenario.histoire();
+
+    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+      page = page + 1;
+    }
+
+    if (page == 1) {
+      scenario.instruction();
+    }
+
+  }
+
   public void majEtatJeu() {
+
     for (Sprite sprite : sprites) {
       if (souris.clicGauche() && sprite.estEncollisionAvec(souris)) {
         indexSprite = sprite;
+        fragile = fragile + 1;
+      }
+    }
+    sprites.remove(indexSprite);
+
+    if (invincible == false) {
+      if (joueur.estEncollisionAvec(sprites)) {
+        duree = 120;
+        invincible = true;
+        NB_COEUR = NB_COEUR - 1;
       }
     }
 
-    sprites.remove(indexSprite);
+    if (invincible == true) {
+      duree = duree - 1;
+    }
 
-    if (sprites.isEmpty()) {
+    if (duree == 0 && invincible == true) {
+      invincible = false;
+    }
+
+    if (NB_COEUR == 0) {
       gameOver = true;
       if ((gameOver == true)) {
         Gdx.gl.glClearColor(0, 0, .25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(imgfin, hauteurFenetre / 3, longueurFenetre / 3);
+        batch.draw(imgdefaite, hauteurFenetre / 3, longueurFenetre / 3);
         batch.end();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+          page = page + 1;
+        }
+
+      }
+    }
+
+    if (sprites.isEmpty()) {
+      victoire = true;
+      if ((victoire == true)) {
+        Gdx.gl.glClearColor(0, 0, .25f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        batch.draw(imgvictoire, hauteurFenetre / 3, longueurFenetre / 3);
+        batch.end();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+          page = page + 1;
+        }
+
       }
     }
   }
 
-  public void difficultee(){
+  public void difficultee() {
     if (compteur != 0 && stop == false) {
       compteur = compteur - 1;
     }
-    if (compteur == 0) {
+    if (compteur <= 0) {
       sprites.add(new Sprite());
-      compteur = 420;
+      compteur = 180;
     }
 
-    if(sprites.size()==10){
-      stop=true;
+    if (sprites.size() == 10) {
+      stop = true;
+    }
+
+    if (sprites.size() != 10) {
+      stop = false;
     }
 
   }
 
+  public static int getFragile() {
+    return fragile;
+  }
+
   @Override
   public void render() {
-    if (gameOver == false) {
-      reinitialiserArrierePlan();
-      majEtatJeu();
-      dessin();
-      majEtat();
-      difficultee();
-    } else {
-      majEtatJeu();
+
+    if (page <= 1) {
+      afficher();
+    }
+
+    if (page == 2) {
+      if (gameOver == false && victoire == false) {
+        reinitialiserArrierePlan();
+        majEtatJeu();
+        dessin();
+        majEtat();
+        difficultee();
+      } else {
+        majEtatJeu();
+        scenario.passer();
+      }
+    }
+    if (page == 3) {
+      scenario.recommencer();
+      batch.begin();
+      joueur.dessinerJoueur(batch);
+      batch.end();
+      joueur.majEtat();
+
+      if (scenario.estEncollisionAvecValider(joueur) && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        rejouer = true;
+        boucle=1;
+      }
+
+      if (scenario.estEncollisionAvecRefuser(joueur) && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        rejouer = false;
+        verif=true;
+      }
+
+    }
+
+    if (rejouer == false && verif==true ) {
+      scenario.credit();
+    }
+
+  }
+
+  public void rejouer(){
+    if(boucle==1){
+      do {
+        create();
+        render();
+      } while (rejouer == true);
     }
   }
 

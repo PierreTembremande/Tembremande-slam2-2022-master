@@ -112,7 +112,7 @@ public class Joueur extends ApplicationAdapter {
 
     public boolean estEncollisionAvec(ArrayList<Sprite> sprites) {
         for (Sprite sprite : sprites) {
-            if(estEncollisionAvec(sprite)) {
+            if (estEncollisionAvec(sprite)) {
                 return true;
             }
         }

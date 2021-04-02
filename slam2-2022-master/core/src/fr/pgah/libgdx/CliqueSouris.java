@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 public class CliqueSouris {
@@ -36,11 +34,23 @@ public class CliqueSouris {
 
         rect = new Rectangle(coordX, coordY, longueurImage, hauteurImage);
 
-        coordX = longueurImage/2;
-        coordY = hauteurImage/2;
+        coordX = longueurImage / 2;
+        coordY = hauteurImage / 2;
 
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(imag, 0, 0));
-        imag.dispose();
+
+    }
+
+    public void dessiner() {
+        if (Intro.getFragile() == 8) {
+            imag = new Pixmap(Gdx.files.internal("curseurBrise.png"));
+            Gdx.graphics.setCursor(Gdx.graphics.newCursor(imag, 0, 0));
+        }
+
+        if (Intro.getFragile() == 16) {
+            imag = new Pixmap(Gdx.files.internal("curseurPoussiere.png"));
+            Gdx.graphics.setCursor(Gdx.graphics.newCursor(imag, 0, 0));
+        }
     }
 
     public boolean clicGauche() {
@@ -85,14 +95,14 @@ public class CliqueSouris {
 
         rect.setPosition(coordX, coordY);
     }
-    
-    private void actualiser(){
+
+    private void actualiser() {
         coordX = Gdx.input.getX();
         coordY = Gdx.graphics.getHeight() - Gdx.input.getY();
         rect.setPosition(coordX, coordY);
     }
 
-    public void majEtat(){
+    public void majEtat() {
         resterDansLeCadreSouris();
         actualiser();
     }
