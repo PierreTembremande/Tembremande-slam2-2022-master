@@ -18,8 +18,8 @@ public class Intro extends ApplicationAdapter {
   int compteur;
   int duree;
   int page;
+  int ajouts;
   int boucle;
-  
 
   int longueurFenetre;
   int hauteurFenetre;
@@ -52,19 +52,8 @@ public class Intro extends ApplicationAdapter {
     longueurFenetre = Gdx.graphics.getWidth();
     hauteurFenetre = Gdx.graphics.getHeight();
 
-    NB_COEUR=3;
-    NB_SPRITES=7;
-    page=0;
-    compteur=180;
-    fragile=0;
-    boucle=0;
-
-    rejouer=true;
-    invincible = false;
-    gameOver = false;
-    victoire = false;
-    stop = false;
-    verif = false;
+    NB_COEUR = 3;
+    NB_SPRITES = 7;
 
     sprites = new ArrayList<Sprite>();
     imgvictoire = new Texture("victoire.jpg");
@@ -76,6 +65,17 @@ public class Intro extends ApplicationAdapter {
     initialiserVie();
     initialiserSouris();
     initialiserScenario();
+
+    page = 0;
+    compteur = 180;
+    fragile = 0;
+    boucle = 0;
+    duree=0;
+
+    gameOver=false;
+    victoire=false;
+    rejouer = false;
+   
 
   }
 
@@ -235,8 +235,14 @@ public class Intro extends ApplicationAdapter {
 
   @Override
   public void render() {
+    jeux();
+    recommencer();
 
+  }
+
+  public void jeux() {
     if (page <= 1) {
+      reinitialiserArrierePlan();
       afficher();
     }
 
@@ -259,31 +265,33 @@ public class Intro extends ApplicationAdapter {
       batch.end();
       joueur.majEtat();
 
-      if (scenario.estEncollisionAvecValider(joueur) && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+      if (scenario.estEncollisionAvecValider(joueur) && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
         rejouer = true;
-        boucle=1;
+        boucle = 1;
       }
 
-      if (scenario.estEncollisionAvecRefuser(joueur) && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+      if (scenario.estEncollisionAvecRefuser(joueur) && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
         rejouer = false;
-        verif=true;
+        verif = true;
       }
 
     }
 
-    if (rejouer == false && verif==true ) {
+    if (rejouer == false && verif == true) {
       scenario.credit();
     }
 
   }
 
-  public void rejouer(){
-    if(boucle==1){
+  public void recommencer() {
+    if (rejouer == true) {
+      reinitialiserArrierePlan();
+      create();
       do {
-        create();
-        render();
-      } while (rejouer == true);
+        jeux();
+      } while (boucle == 1);
     }
+
   }
 
 }
