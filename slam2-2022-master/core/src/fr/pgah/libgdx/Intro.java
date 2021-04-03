@@ -279,6 +279,13 @@ public class Intro extends ApplicationAdapter {
 
     if (rejouer == false && verif == true) {
       scenario.credit();
+      if( Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+        page=page+1;
+      }
+    }
+
+    if(page==4){
+      scenario.remerciement();
     }
 
   }

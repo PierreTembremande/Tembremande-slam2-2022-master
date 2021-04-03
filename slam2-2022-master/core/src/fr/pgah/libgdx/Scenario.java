@@ -13,6 +13,7 @@ public class Scenario {
     SpriteBatch batch = new SpriteBatch();
     Texture valider = new Texture("oui.png");
     Texture refuser =new Texture("non.png");
+    Texture fini= new Texture("chateau.jpg");
 
     int longueurFenetre;
     int hauteurFenetre;
@@ -28,6 +29,7 @@ public class Scenario {
     CharSequence passer;
     CharSequence credit;
     CharSequence rejouer;
+    CharSequence fin;
 
     Rectangle rectO;
     Rectangle rectN;
@@ -45,11 +47,12 @@ public class Scenario {
         rectO = new Rectangle(140, 225, longueurImgO, hauteurImgO);
         rectN = new Rectangle(220, 225, longueurImgN, hauteurImgN);
 
-        histoire = "Le chateau est attaque par des monstres!!\n Preux chevalier tuez-les ou perissez.\n Prenez cette epee et COMBATTEZ!\n Attention ces derniers sont faibles mais nombreux\n le temps est leurs allie.\n\n\n\n [Apuyer sur ESPACE pour commencer]";
-        instruction = "La touche Q sert pour se diriger ver la gauche.\nLa touche Z sert pour se diriger vers le haut.\nLa touche S sert pour se diriger vers le bas.\nLa touche D sert pour se diriger la droite.\n\nCliquez sur les image avec votre souris\nPour tuer les monstres.\n\nVous perdez si votre vie tombe à 0.\n\nAttention si vous donnez trop de coup votre epee se brisse\n\n\n[Appuyez sur ESPACE pour continuer]";
+        histoire = "Le chateau est attaque par des monstres!!\n\n Preux chevalier tuez-les ou perissez.\n\n Prenez cette epee et COMBATTEZ!\n\n Attention ces derniers sont faibles mais nombreux\n\n le temps est leurs allie.\n\n\n\n [Appuyer sur ESPACE pour commencer]";
+        instruction = "La touche Q sert pour se diriger ver la gauche.\nLa touche Z sert pour se diriger vers le haut.\nLa touche S sert pour se diriger vers le bas.\nLa touche D sert pour se diriger la droite.\n\nCliquez sur les image avec votre souris\nPour tuer les monstres.\n\nVous perdez si votre vie tombe a 0.\n\nAttention si vous donnez trop de coup votre epee se brisse\n\n\n[Appuyez sur ESPACE pour continuer]";
         passer = "[Appuyer sur la barre ESPACE]";
         credit = "Base sur le code de monsieur Patrice Gahide\n\n\n amélioration, modification et innovation apporte par : \n\n Monsieur Pierre Tembremande\n\n [Appuyer sur ESPACE]";
         rejouer="Voulez-vous recommencer une partie?\n\noui        ou        non\n\n\n [appuyer sur ENTREE pour valider]";
+        fin="!!MERCI D'AVOIR JOUER!!";
     }
 
     public void histoire() {
@@ -96,6 +99,15 @@ public class Scenario {
 
         batch.end();
 
+    }
+
+    public void remerciement() {
+        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        batch.draw(fini,0,0);
+        font.draw(batch, fin, 40, hauteurFenetre-40);
+        batch.end();
     }
 
     public boolean estEncollisionAvecValider(Joueur joueur) {
