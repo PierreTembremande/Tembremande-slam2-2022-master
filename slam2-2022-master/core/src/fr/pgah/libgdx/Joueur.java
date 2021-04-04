@@ -42,7 +42,7 @@ public class Joueur extends ApplicationAdapter {
 
         facteurTaille2 = 0.35;
 
-        longueurImage = (int) (img.getWidth() * facteurTaille2);// ne fonctionne pas correctement
+        longueurImage = (int) (img.getWidth() * facteurTaille2);
         hauteurImage = (int) (img.getHeight() * facteurTaille2);
 
         rectj = new Rectangle(coordX, coordY, longueurImage, hauteurImage);

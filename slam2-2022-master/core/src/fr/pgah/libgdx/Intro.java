@@ -14,12 +14,14 @@ public class Intro extends ApplicationAdapter {
 
   static int fragile;
   static int NB_COEUR;
+
   int NB_SPRITES;
   int compteur;
   int duree;
   int page;
   int ajouts;
   int boucle;
+  int conclusion;
 
   int longueurFenetre;
   int hauteurFenetre;
@@ -30,6 +32,7 @@ public class Intro extends ApplicationAdapter {
   boolean stop;
   boolean verif;
   boolean invincible;
+  boolean jeu;
 
   Sprite indexSprite;
 
@@ -70,12 +73,13 @@ public class Intro extends ApplicationAdapter {
     compteur = 180;
     fragile = 0;
     boucle = 0;
-    duree=0;
+    duree = 0;
 
-    gameOver=false;
-    victoire=false;
+    gameOver = false;
+    victoire = false;
     rejouer = false;
-   
+    invincible = false;
+    jeu=false;
 
   }
 
@@ -273,19 +277,26 @@ public class Intro extends ApplicationAdapter {
       if (scenario.estEncollisionAvecRefuser(joueur) && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
         rejouer = false;
         verif = true;
+        page = page + 1;
       }
 
     }
 
-    if (rejouer == false && verif == true) {
+    if (rejouer == false && verif == true && page == 4) {
       scenario.credit();
-      if( Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-        page=page+1;
+      if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        page = page + 1;
       }
     }
 
-    if(page==4){
+    if (page == 5) {
       scenario.remerciement();
+      jeu=true;
+      conclusion=900;
+    }
+
+    if (jeu==true && Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+      System.exit(0);
     }
 
   }
