@@ -21,7 +21,6 @@ public class Intro extends ApplicationAdapter {
   int page;
   int ajouts;
   int boucle;
-  int conclusion;
 
   int longueurFenetre;
   int hauteurFenetre;
@@ -79,7 +78,7 @@ public class Intro extends ApplicationAdapter {
     victoire = false;
     rejouer = false;
     invincible = false;
-    jeu=false;
+    jeu = false;
 
   }
 
@@ -291,11 +290,10 @@ public class Intro extends ApplicationAdapter {
 
     if (page == 5) {
       scenario.remerciement();
-      jeu=true;
-      conclusion=900;
+      jeu = true;
     }
 
-    if (jeu==true && Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+    if (jeu == true && Gdx.input.isKeyJustPressed(Input.Keys.F)) {
       System.exit(0);
     }
 
