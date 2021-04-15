@@ -7,25 +7,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.ApplicationAdapter;
 
-public class Joueur extends ApplicationAdapter {
-
-    Rectangle rectj;
-
-    SpriteBatch batch;
-
-    Texture img = new Texture("joueur.jpg");
-
-    int coordX = 0;
-    int coordY = 0;
-    int pas = 8;
-
-    int hauteurImage;
-    int longueurImage;
-
-    int longueurFenetre;
-    int hauteurFenetre;
+public class Joueur extends Protagoniste {
 
     double facteurTaille2;
 
@@ -37,6 +20,8 @@ public class Joueur extends ApplicationAdapter {
 
     private void initialiser() {
 
+        img = new Texture("joueur.jpg");
+
         longueurFenetre = Gdx.graphics.getWidth();
         hauteurFenetre = Gdx.graphics.getHeight();
 
@@ -45,7 +30,12 @@ public class Joueur extends ApplicationAdapter {
         longueurImage = (int) (img.getWidth() * facteurTaille2);
         hauteurImage = (int) (img.getHeight() * facteurTaille2);
 
-        rectj = new Rectangle(coordX, coordY, longueurImage, hauteurImage);
+        rectj= new Rectangle(coordX, coordY, longueurImage, hauteurImage);
+
+        coordX = 0;
+        coordY = 0;
+        pas = 8;
+
     }
 
     private void deplacer() {
@@ -99,27 +89,27 @@ public class Joueur extends ApplicationAdapter {
     }
 
     public void majEtat() {
-        initialiser();
         deplacer();
         resterDansLeCadre();
     }
 
-    public void dessinerJoueur(SpriteBatch batch) {
+    public void dessiner(SpriteBatch batch) {
 
         batch.draw(img, coordX, coordY, longueurImage, hauteurImage);
 
     }
 
-    public boolean estEncollisionAvec(ArrayList<Sprite> sprites) {
-        for (Sprite sprite : sprites) {
-            if (estEncollisionAvec(sprite)) {
+    public boolean estEncollisionAvecSprite(ArrayList<Protagoniste> protagonistes) {
+        for (Protagoniste sprite : protagonistes) {
+            if (estEncollisionAveclui(sprite)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean estEncollisionAvec(Sprite sprite) {
+    public boolean estEncollisionAveclui(Protagoniste sprite) {
+        sprite= (Sprite) sprite;
         if (rectj.overlaps(sprite.rect)) {
             return true;
         } else {

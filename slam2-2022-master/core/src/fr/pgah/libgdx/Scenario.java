@@ -1,5 +1,7 @@
 package fr.pgah.libgdx;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,8 +14,8 @@ public class Scenario {
     BitmapFont font = new BitmapFont(Gdx.files.internal("police.fnt"), Gdx.files.internal("police.png"), false);
     SpriteBatch batch = new SpriteBatch();
     Texture valider = new Texture("oui.png");
-    Texture refuser =new Texture("non.png");
-    Texture fini= new Texture("chateau.jpg");
+    Texture refuser = new Texture("non.png");
+    Texture fini = new Texture("chateau.jpg");
 
     int longueurFenetre;
     int hauteurFenetre;
@@ -38,7 +40,7 @@ public class Scenario {
         longueurFenetre = Gdx.graphics.getWidth();
         hauteurFenetre = Gdx.graphics.getHeight();
 
-        hauteurImgO =  valider.getHeight() ;
+        hauteurImgO = valider.getHeight();
         longueurImgO = valider.getWidth();
 
         hauteurImgN = valider.getHeight();
@@ -51,8 +53,8 @@ public class Scenario {
         instruction = "\nLa touche Q sert pour se diriger ver la gauche.\nLa touche Z sert pour se diriger vers le haut.\nLa touche S sert pour se diriger vers le bas.\nLa touche D sert pour se diriger la droite.\n\nCliquez sur les image avec votre souris\nPour tuer les monstres.\n\nVous perdez si votre vie tombe a 0.\n\nAttention si vous donnez trop de coup votre epee se brisse\n\n\n[Appuyez sur ESPACE pour continuer]";
         passer = "[Appuyez sur la barre ESPACE]";
         credit = "Base sur le code de monsieur Patrice Gahide\n\n\n amelioration, modification et innovation apporte par : \n\n Monsieur Pierre Tembremande\n\n\n [Appuyez sur ESPACE]";
-        rejouer="Voulez-vous recommencer une partie?\n\noui        ou         non\n\n\n [appuyez sur ENTREE pour valider]";
-        fin="!!MERCI D'AVOIR JOUE!!\n\n\n\n\n\n\n\n\n\n\n\n      [Appuyez sur F]";
+        rejouer = "Voulez-vous recommencer une partie?\n\noui        ou         non\n\n\n [appuyez sur ENTREE pour valider]";
+        fin = "!!MERCI D'AVOIR JOUE!!\n\n\n\n\n\n\n\n\n\n\n\n      [Appuyez sur F]";
     }
 
     public void histoire() {
@@ -85,11 +87,11 @@ public class Scenario {
         batch.end();
     }
 
-    public void recommencer(){
+    public void recommencer() {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        font.draw(batch, rejouer, longueurFenetre/6, hauteurFenetre -160);
+        font.draw(batch, rejouer, longueurFenetre / 6, hauteurFenetre - 160);
 
         batch.draw(valider, 140, 225);
         rectO.setPosition(140, 225);
@@ -105,21 +107,23 @@ public class Scenario {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(fini,0,0,longueurFenetre,hauteurFenetre);
-        font.draw(batch, fin, 200, hauteurFenetre-40);
+        batch.draw(fini, 0, 0, longueurFenetre, hauteurFenetre);
+        font.draw(batch, fin, 200, hauteurFenetre - 40);
         batch.end();
     }
 
-    public boolean estEncollisionAvecValider(Joueur joueur) {
+    public boolean estEncollisionAvecValider(ArrayList<Protagoniste> joueurs) {
 
-        if (estEncollisionAvecV(joueur)) {
-            return true;
+        for (Protagoniste joueur : joueurs) {
+            if (estEncollisionAvecV(joueur)) {
+                return true;
+            }
         }
 
         return false;
     }
 
-    private boolean estEncollisionAvecV(Joueur joueur) {
+    private boolean estEncollisionAvecV(Protagoniste joueur) {
         if (rectO.overlaps(joueur.rectj)) {
             return true;
         } else {
@@ -127,16 +131,19 @@ public class Scenario {
         }
     }
 
-    public boolean estEncollisionAvecRefuser(Joueur joueur) {
+    public boolean estEncollisionAvecRefuser(ArrayList<Protagoniste> joueurs) {
 
-        if (estEncollisionAvecR(joueur)) {
-            return true;
+        for (Protagoniste joueur : joueurs) {
+            
+            if (estEncollisionAvecR(joueur)) {
+                return true;
+            }
         }
 
         return false;
     }
 
-    private boolean estEncollisionAvecR(Joueur joueur) {
+    private boolean estEncollisionAvecR(Protagoniste joueur) {
         if (rectN.overlaps(joueur.rectj)) {
             return true;
         } else {

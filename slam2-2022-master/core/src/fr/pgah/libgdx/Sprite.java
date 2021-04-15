@@ -1,5 +1,4 @@
 package fr.pgah.libgdx;
-
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -7,21 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Sprite {
+public class Sprite extends Protagoniste {
 
-    Rectangle rect;
-
-    Texture img = new Texture("projectile.jpg");;
-
-    int longueurFenetre;
-    int hauteurFenetre;
-    int coordX;
-    int coordY;
-    int vitesse;
     int vitesseRotation;
-    int hauteurImg;
-    int longueurImg;
-
     boolean versLaDroite;
     boolean versLeHaut;
 
@@ -30,8 +17,6 @@ public class Sprite {
     float rotation;
 
     Random generateurAleatoire;
-
-    public Object dessin;
 
     public Sprite() {
 
@@ -44,6 +29,8 @@ public class Sprite {
         longueurFenetre = Gdx.graphics.getWidth();
         hauteurFenetre = Gdx.graphics.getHeight();
 
+        img = new Texture("projectile.jpg");
+
         generateurAleatoire = new Random();
         facteurTaille = 0.35;
 
@@ -53,16 +40,16 @@ public class Sprite {
         vitesseRotation = 5 + generateurAleatoire.nextInt(21);
         rotation = rotation + vitesseRotation;
 
-        hauteurImg = (int) (img.getHeight() * facteurTaille);
-        longueurImg = (int) (img.getWidth() * facteurTaille);
+        hauteurImage = (int) (img.getHeight() * facteurTaille);
+        longueurImage = (int) (img.getWidth() * facteurTaille);
 
-        coordX = generateurAleatoire.nextInt(longueurFenetre - (longueurImg));
-        coordY = generateurAleatoire.nextInt(hauteurFenetre - (hauteurImg));
+        coordX = generateurAleatoire.nextInt(longueurFenetre - (longueurImage));
+        coordY = generateurAleatoire.nextInt(hauteurFenetre - (hauteurImage));
 
         versLaDroite = generateurAleatoire.nextBoolean();
         versLeHaut = generateurAleatoire.nextBoolean();
 
-        rect = new Rectangle(coordX, coordY, longueurImg, hauteurImg);
+        rect = new Rectangle(coordX, coordY, longueurImage, hauteurImage);
 
     }
 
@@ -84,8 +71,8 @@ public class Sprite {
 
     private void resterDansLeCadre() {
         // Gestion bordure droite
-        if (coordX + longueurImg > longueurFenetre) {
-            coordX = longueurFenetre - longueurImg;
+        if (coordX + longueurImage > longueurFenetre) {
+            coordX = longueurFenetre - longueurImage;
             versLaDroite = false;
         }
 
@@ -96,8 +83,8 @@ public class Sprite {
         }
 
         // Gestion bordures haute
-        if (coordY + hauteurImg > hauteurFenetre) {
-            coordY = hauteurFenetre - hauteurImg;
+        if (coordY + hauteurImage > hauteurFenetre) {
+            coordY = hauteurFenetre - hauteurImage;
             versLeHaut = false;
         }
 
@@ -110,20 +97,20 @@ public class Sprite {
         rect.setPosition(coordX, coordY);
     }
 
-    private void pivoter() {
-        rotation = rotation + vitesseRotation;
-    }
+    // private void pivoter() {
+    // rotation = rotation + vitesseRotation;
+    // }
 
     public void majEtat() {
         deplacer();
         resterDansLeCadre();
-        pivoter();
+        // pivoter();
     }
 
     public void dessiner(SpriteBatch batch) {
 
-        batch.draw(img, coordX, coordY, longueurImg / 2, hauteurImg / 2, longueurImg, hauteurImg, 1, 1, rotation, 0, 0,
-                img.getWidth(), img.getHeight(), false, false);
+        batch.draw(img, coordX, coordY, longueurImage / 2, hauteurImage / 2, longueurImage, hauteurImage, 1, 1,
+                rotation, 0, 0, img.getWidth(), img.getHeight(), false, false);
 
     }
 
