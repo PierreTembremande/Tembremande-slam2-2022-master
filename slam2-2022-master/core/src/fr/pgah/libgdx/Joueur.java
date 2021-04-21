@@ -30,7 +30,7 @@ public class Joueur extends Protagoniste {
         longueurImage = (int) (img.getWidth() * facteurTaille2);
         hauteurImage = (int) (img.getHeight() * facteurTaille2);
 
-        rectj= new Rectangle(coordX, coordY, longueurImage, hauteurImage);
+        rect= new Rectangle(coordX, coordY, longueurImage, hauteurImage);
 
         coordX = 0;
         coordY = 0;
@@ -56,7 +56,7 @@ public class Joueur extends Protagoniste {
             coordX = coordX + pas;
         }
 
-        rectj.setPosition(coordX, coordY);
+        rect.setPosition(coordX, coordY);
     }
 
     private void resterDansLeCadre() {
@@ -85,7 +85,7 @@ public class Joueur extends Protagoniste {
 
         }
 
-        rectj.setPosition(coordX, coordY);
+        rect.setPosition(coordX, coordY);
     }
 
     public void majEtat() {
@@ -109,8 +109,7 @@ public class Joueur extends Protagoniste {
     }
 
     public boolean estEncollisionAveclui(Protagoniste sprite) {
-        sprite= (Sprite) sprite;
-        if (rectj.overlaps(sprite.rect)) {
+        if (rect.overlaps(sprite.rect) && sprite instanceof Sprite) {
             return true;
         } else {
             return false;

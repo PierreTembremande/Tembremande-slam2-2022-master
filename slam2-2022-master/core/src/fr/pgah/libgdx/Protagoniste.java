@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Rectangle;
 public class Protagoniste {
 
     Rectangle rect;
-    Rectangle rectj;
 
     SpriteBatch batch;
 
@@ -56,7 +55,6 @@ public class Protagoniste {
     }
 
     public boolean estEncollisionAvecSprite(ArrayList<Protagoniste> protagonistes) {
-
         return touch;
 
     }

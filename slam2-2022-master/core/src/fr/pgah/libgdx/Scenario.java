@@ -112,39 +112,34 @@ public class Scenario {
         batch.end();
     }
 
-    public boolean estEncollisionAvecValider(ArrayList<Protagoniste> joueurs) {
+    public boolean estEncollisionAvecValider(Protagoniste joueur) {
 
-        for (Protagoniste joueur : joueurs) {
-            if (estEncollisionAvecV(joueur)) {
-                return true;
-            }
+        if (estEncollisionAvecV(joueur)) {
+            return true;
         }
 
         return false;
     }
 
     private boolean estEncollisionAvecV(Protagoniste joueur) {
-        if (rectO.overlaps(joueur.rectj)) {
+        if (rectO.overlaps(joueur.rect)) {
             return true;
         } else {
             return false;
         }
     }
 
-    public boolean estEncollisionAvecRefuser(ArrayList<Protagoniste> joueurs) {
+    public boolean estEncollisionAvecRefuser(Protagoniste joueur) {
 
-        for (Protagoniste joueur : joueurs) {
-            
-            if (estEncollisionAvecR(joueur)) {
-                return true;
-            }
+        if (estEncollisionAvecR(joueur)) {
+            return true;
         }
 
         return false;
     }
 
     private boolean estEncollisionAvecR(Protagoniste joueur) {
-        if (rectN.overlaps(joueur.rectj)) {
+        if (rectN.overlaps(joueur.rect)) {
             return true;
         } else {
             return false;

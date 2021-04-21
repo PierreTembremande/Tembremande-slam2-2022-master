@@ -60,8 +60,8 @@ public class Intro extends ApplicationAdapter {
     imgdefaite = new Texture("gameover.png");
     batch = new SpriteBatch();
 
-    initialisationSprites();
     initialiserJoueur();
+    initialisationSprites();
     initialiserVie();
     initialiserSouris();
     initialiserScenario();
@@ -162,7 +162,7 @@ public class Intro extends ApplicationAdapter {
     protagonistes.remove(indexSprite);
 
     if (invincible == false) {
-      for(Protagoniste protagoniste : protagonistes){
+      for (Protagoniste protagoniste : protagonistes) {
         if (protagoniste.estEncollisionAvecSprite(protagonistes)) {
           duree = 120;
           invincible = true;
@@ -194,7 +194,7 @@ public class Intro extends ApplicationAdapter {
       }
     }
 
-    if (protagonistes.size()==1) {
+    if (protagonistes.size() == 1) {
       victoire = true;
       if ((victoire == true)) {
         Gdx.gl.glClearColor(0, 0, .25f, 1);
@@ -261,22 +261,18 @@ public class Intro extends ApplicationAdapter {
       scenario.recommencer();
       batch.begin();
 
-      for (Protagoniste protagoniste : protagonistes) {
-        protagoniste.dessiner(batch);
-      }
+      protagonistes.get(0).dessiner(batch);
 
       batch.end();
 
-      for (Protagoniste protagoniste : protagonistes) {
-        protagoniste.majEtat();
-      }
+      protagonistes.get(0).majEtat();
 
-      if (scenario.estEncollisionAvecValider(protagonistes) && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+      if (scenario.estEncollisionAvecValider(protagonistes.get(0)) && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
         rejouer = true;
         boucle = 1;
       }
 
-      if (scenario.estEncollisionAvecRefuser(protagonistes) && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+      if (scenario.estEncollisionAvecRefuser(protagonistes.get(0)) && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
         rejouer = false;
         verif = true;
         page = page + 1;
