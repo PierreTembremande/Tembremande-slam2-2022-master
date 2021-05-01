@@ -42,12 +42,12 @@ public class CliqueSouris {
     }
 
     public void dessiner() {
-        if (Intro.getFragile() == 8) {
+        if (Protagonistes.getFragile() == 8) {
             imag = new Pixmap(Gdx.files.internal("curseurBrise.png"));
             Gdx.graphics.setCursor(Gdx.graphics.newCursor(imag, 0, 0));
         }
 
-        if (Intro.getFragile() == 16) {
+        if (Protagonistes.getFragile() == 16) {
             imag = new Pixmap(Gdx.files.internal("curseurPoussiere.png"));
             Gdx.graphics.setCursor(Gdx.graphics.newCursor(imag, 0, 0));
         }

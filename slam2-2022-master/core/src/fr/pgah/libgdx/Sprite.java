@@ -109,8 +109,10 @@ public class Sprite extends Protagoniste {
 
     public void dessiner(SpriteBatch batch) {
 
+        batch.begin();
         batch.draw(img, coordX, coordY, longueurImage / 2, hauteurImage / 2, longueurImage, hauteurImage, 1, 1,
                 rotation, 0, 0, img.getWidth(), img.getHeight(), false, false);
+        batch.end();
 
     }
 

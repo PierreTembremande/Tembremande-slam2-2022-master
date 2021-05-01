@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Vie {
     Texture img = new Texture("coeur.png");
-    static int NB_COEUR = 3;
     int longueurFenetre;
     int hauteurFenetre;
     int longueurImage;
@@ -31,7 +30,7 @@ public class Vie {
         longueurImage = (int) (img.getWidth() * reduction);
         hauteurImage = (int) (img.getHeight() * reduction);
 
-        for (int i = 0; i < NB_COEUR; i++) {
+        for (int i = 0; i < Intro.NB_COEUR; i++) {
             coordX[i] = i * longueurImage;
         }
 
