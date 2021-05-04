@@ -38,7 +38,7 @@ public class Joueur extends Protagoniste {
 
     }
 
-    private void deplacer() {
+    protected void deplacer() {
 
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             coordX = coordX - pas;
@@ -59,7 +59,7 @@ public class Joueur extends Protagoniste {
         rect.setPosition(coordX, coordY);
     }
 
-    private void resterDansLeCadre() {
+    protected void resterDansLeCadre() {
 
         // Gestion bordure droite
         if (coordX + longueurImage > longueurFenetre) {
@@ -100,17 +100,17 @@ public class Joueur extends Protagoniste {
 
     }
 
-    public boolean estEncollisionAvecSprite(ArrayList<Protagoniste> protagonistes) {
-        for (Protagoniste sprite : protagonistes) {
-            if (estEncollisionAveclui(sprite)) {
+    protected boolean estEncollisionAvecSprite(ArrayList<Protagoniste> protagonistes) {
+        for (Protagoniste ennemis : protagonistes) {
+            if (estEncollisionAveclui(ennemis)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean estEncollisionAveclui(Protagoniste sprite) {
-        if (rect.overlaps(sprite.rect) && sprite instanceof Sprite) {
+    protected boolean estEncollisionAveclui(Protagoniste sprite) {
+        if (rect.overlaps(sprite.rect) && sprite instanceof Ennemis) {
             return true;
         } else {
             return false;

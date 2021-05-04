@@ -11,7 +11,7 @@ public class Intro extends ApplicationAdapter {
   SpriteBatch batch;
 
   static int NB_COEUR;
-  static int NB_SPRITES;
+  static int NB_ENNEMIES;
   static int page;
 
   static CliqueSouris souris;
@@ -35,13 +35,14 @@ public class Intro extends ApplicationAdapter {
   public void create() {
 
     NB_COEUR = 3;
-    NB_SPRITES = 7;
+    NB_ENNEMIES = 7;
 
     protagonistes = new Protagonistes();
     batch = new SpriteBatch();
 
+    
     protagonistes.initialiserJoueur();
-    protagonistes.initialisationSprites();
+    protagonistes.initialisationEnnemies();
     initialiserVie();
     initialiserSouris();
     initialiserScenario();
@@ -75,6 +76,8 @@ public class Intro extends ApplicationAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
   }
 
+
+
   public void majEtat() {
 
     protagonistes.majEtat();
@@ -85,11 +88,11 @@ public class Intro extends ApplicationAdapter {
   public void dessin() {
     batch.begin();
 
-    protagonistes.dessiner();
-
     for (int i = 0; i < NB_COEUR; i++) {
       coeurs[i].dessiner(batch);
     }
+
+    protagonistes.dessiner();
 
     souris.dessiner();
 
@@ -136,11 +139,10 @@ public class Intro extends ApplicationAdapter {
     if (page == 2) {
       if (protagonistes.gameOver == false && protagonistes.victoire == false) {
         reinitialiserArrierePlan();
-        majEtatJeu();
         dessin();
+        majEtatJeu();
         majEtat();
         difficultee();
-
       } else {
         majEtatJeu();
         scenario.passer();

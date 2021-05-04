@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Protagoniste {
+public abstract class Protagoniste {
 
     Rectangle rect;
 
@@ -34,27 +34,21 @@ public class Protagoniste {
         resterDansLeCadre();
     }
 
-    private void deplacer() {
+    protected abstract void deplacer();
 
-    }
-
-    private void resterDansLeCadre() {
-
-    }
+    protected abstract void resterDansLeCadre();
 
     public void dessiner(SpriteBatch batch) {
 
     }
 
-    public void dessinerJoueur(SpriteBatch batch) {
+    protected void dessinerJoueur(SpriteBatch batch){}
 
-    }
-
-    public boolean estEncollisionAvec(CliqueSouris souris) {
+    protected boolean estEncollisionAvec(CliqueSouris souris) {
         return hit;
     }
 
-    public boolean estEncollisionAvecSprite(ArrayList<Protagoniste> protagonistes) {
+    protected boolean estEncollisionAvecSprite(ArrayList<Protagoniste> protagonistes) {
         return touch;
 
     }

@@ -22,7 +22,6 @@ public class Protagonistes {
     int duree;
     int compteur;
 
-
     boolean invincible;
     boolean gameOver;
     boolean victoire;
@@ -40,7 +39,7 @@ public class Protagonistes {
         batch = new SpriteBatch();
         imgvictoire = new Texture("victoire.jpg");
         imgdefaite = new Texture("gameover.png");
-        
+
         fragile = 0;
         duree = 0;
         compteur = 180;
@@ -55,10 +54,10 @@ public class Protagonistes {
         protagonistes.add(new Joueur());
     }
 
-    public void initialisationSprites() {
+    public void initialisationEnnemies() {
 
-        for (int i = 0; i < Intro.NB_SPRITES; i++) {
-            protagonistes.add(new Sprite());
+        for (int i = 0; i < Intro.NB_ENNEMIES; i++) {
+            protagonistes.add(new Ennemis());
         }
     }
 
@@ -70,7 +69,6 @@ public class Protagonistes {
     }
 
     public void dessiner() {
-
         for (Protagoniste protagoniste : protagonistes) {
             protagoniste.dessiner(batch);
         }
@@ -142,7 +140,7 @@ public class Protagonistes {
             compteur = compteur - 1;
         }
         if (compteur <= 0) {
-            protagonistes.add(new Sprite());
+            protagonistes.add(new Ennemis());
             compteur = 180;
         }
 

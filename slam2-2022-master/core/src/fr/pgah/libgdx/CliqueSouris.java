@@ -107,8 +107,8 @@ public class CliqueSouris {
         actualiser();
     }
 
-    public boolean estEncollisionAvec(ArrayList<Sprite> sprites) {
-        for (Sprite sprite : sprites) {
+    public boolean estEncollisionAvec(ArrayList<Ennemis> sprites) {
+        for (Ennemis sprite : sprites) {
             if (estEncollisionAvec(sprite)) {
                 return true;
             }
@@ -116,7 +116,7 @@ public class CliqueSouris {
         return false;
     }
 
-    public boolean estEncollisionAvec(Sprite sprite) {
+    public boolean estEncollisionAvec(Ennemis sprite) {
         if (rect.overlaps(sprite.rect)) {
             return true;
         } else {

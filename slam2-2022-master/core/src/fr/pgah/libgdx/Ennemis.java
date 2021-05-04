@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Sprite extends Protagoniste {
+public  class Ennemis extends Protagoniste {
 
     int vitesseRotation;
     boolean versLaDroite;
@@ -18,7 +18,7 @@ public class Sprite extends Protagoniste {
 
     Random generateurAleatoire;
 
-    public Sprite() {
+    public Ennemis() {
 
         initialiser();
 
@@ -53,7 +53,7 @@ public class Sprite extends Protagoniste {
 
     }
 
-    private void deplacer() {
+    protected void deplacer() {
 
         if (versLaDroite) {
             coordX = coordX + vitesse;
@@ -69,7 +69,7 @@ public class Sprite extends Protagoniste {
         rect.setPosition(coordX, coordY);
     }
 
-    private void resterDansLeCadre() {
+    protected void resterDansLeCadre() {
         // Gestion bordure droite
         if (coordX + longueurImage > longueurFenetre) {
             coordX = longueurFenetre - longueurImage;
@@ -116,7 +116,7 @@ public class Sprite extends Protagoniste {
 
     }
 
-    public boolean estEncollisionAvec(CliqueSouris souris) {
+    protected boolean estEncollisionAvec(CliqueSouris souris) {
 
         if (estEncollisionAveclui(souris)) {
             return true;
@@ -125,7 +125,7 @@ public class Sprite extends Protagoniste {
         return false;
     }
 
-    private boolean estEncollisionAveclui(CliqueSouris souris) {
+    protected boolean estEncollisionAveclui(CliqueSouris souris) {
         if (rect.overlaps(souris.rect)) {
             return true;
         } else {
