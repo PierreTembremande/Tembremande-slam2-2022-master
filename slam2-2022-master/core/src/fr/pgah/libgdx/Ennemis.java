@@ -8,15 +8,15 @@ import com.badlogic.gdx.math.Rectangle;
 
 public  class Ennemis extends Protagoniste {
 
-    int vitesseRotation;
-    boolean versLaDroite;
-    boolean versLeHaut;
+    private int vitesseRotation;
+    private boolean versLaDroite;
+    private boolean versLeHaut;
 
-    double facteurTaille;
+    private double facteurTaille;
 
-    float rotation;
+    private float rotation;
 
-    Random generateurAleatoire;
+    private Random generateurAleatoire;
 
     public Ennemis() {
 
@@ -109,10 +109,8 @@ public  class Ennemis extends Protagoniste {
 
     public void dessiner(SpriteBatch batch) {
 
-        batch.begin();
         batch.draw(img, coordX, coordY, longueurImage / 2, hauteurImage / 2, longueurImage, hauteurImage, 1, 1,
                 rotation, 0, 0, img.getWidth(), img.getHeight(), false, false);
-        batch.end();
 
     }
 

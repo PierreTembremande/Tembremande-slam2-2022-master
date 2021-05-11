@@ -10,33 +10,33 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Protagonistes {
 
-    SpriteBatch batch;
+    private SpriteBatch batch;
 
-    ArrayList<Protagoniste> protagonistes;
-    Protagoniste indexSprite;
+    private ArrayList<Protagoniste> protagonistes;
+    private Protagoniste indexSprite;
 
-    static int fragile;
+    private static int fragile;
 
-    int longueurFenetre;
-    int hauteurFenetre;
-    int duree;
-    int compteur;
+    private int longueurFenetre;
+    private int hauteurFenetre;
+    private int duree;
+    private int compteur;
 
-    boolean invincible;
+    private boolean invincible;
     boolean gameOver;
     boolean victoire;
-    boolean stop;
+    private boolean stop;
 
-    Texture imgvictoire;
-    Texture imgdefaite;
+    private Texture imgvictoire;
+    private Texture imgdefaite;
 
-    public Protagonistes() {
+    public Protagonistes(int nb_ennemis, SpriteBatch batch) {
 
         longueurFenetre = Gdx.graphics.getWidth();
         hauteurFenetre = Gdx.graphics.getHeight();
 
         protagonistes = new ArrayList<Protagoniste>();
-        batch = new SpriteBatch();
+        this.batch=batch;
         imgvictoire = new Texture("victoire.jpg");
         imgdefaite = new Texture("gameover.png");
 
@@ -54,9 +54,9 @@ public class Protagonistes {
         protagonistes.add(new Joueur());
     }
 
-    public void initialisationEnnemies() {
+    public void initialisationEnnemies(int nb_ennemis) {
 
-        for (int i = 0; i < Intro.NB_ENNEMIES; i++) {
+        for (int i = 0; i < nb_ennemis; i++) {
             protagonistes.add(new Ennemis());
         }
     }
@@ -74,10 +74,10 @@ public class Protagonistes {
         }
     }
 
-    public void majEtatJeu(){
+    public void majEtatJeu() {
 
         for (Protagoniste protagoniste : protagonistes) {
-            if (Intro.souris.clicGauche() && protagoniste.estEncollisionAvec(Intro.souris)) {
+            if (Jeu.souris.clicGauche() && protagoniste.estEncollisionAvec(Jeu.souris)) {
                 indexSprite = protagoniste;
                 fragile = fragile + 1;
             }
@@ -90,7 +90,7 @@ public class Protagonistes {
                 if (protagoniste.estEncollisionAvecSprite(protagonistes)) {
                     duree = 120;
                     invincible = true;
-                    Intro.NB_COEUR = Intro.NB_COEUR - 1;
+                    Jeu.nb_coeur = Jeu.nb_coeur - 1;
                 }
             }
         }
@@ -103,7 +103,7 @@ public class Protagonistes {
             invincible = false;
         }
 
-        if (Intro.NB_COEUR == 0) {
+        if (Jeu.nb_coeur == 0) {
             gameOver = true;
             if ((gameOver == true)) {
                 Gdx.gl.glClearColor(0, 0, .25f, 1);
@@ -112,7 +112,7 @@ public class Protagonistes {
                 batch.draw(imgdefaite, hauteurFenetre / 3, longueurFenetre / 3);
                 batch.end();
                 if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                    Intro.page = Intro.page + 1;
+                    Jeu.page = Jeu.page + 1;
                 }
 
             }
@@ -127,13 +127,13 @@ public class Protagonistes {
                 batch.draw(imgvictoire, hauteurFenetre / 3, longueurFenetre / 3);
                 batch.end();
                 if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                    Intro.page = Intro.page + 1;
+                    Jeu.page = Jeu.page + 1;
                 }
             }
         }
     }
 
-    public void difficultee(){
+    public void difficultee() {
         if (compteur != 0 && stop == false)
 
         {
@@ -154,8 +154,53 @@ public class Protagonistes {
 
     }
 
-  public static int getFragile() {
-    return fragile;
-  }
+    public static int getFragile() {
+        return fragile;
+    }
+
+    public void dessiner_joueur(){
+
+        batch.begin();
+        protagonistes.get(0).dessiner(batch);
+        batch.end();
+    }
+
+    public void majEtatJoueur(){
+        protagonistes.get(0).majEtat();
+    }
+
+    public boolean estEncollisionAvecValider(Scenario oui) {
+
+        if (estEncollisionAvecV(oui)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean estEncollisionAvecV(Scenario oui) {
+        if (oui.rectO.overlaps(protagonistes.get(0).rect)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean estEncollisionAvecRefuser(Scenario non) {
+
+        if (estEncollisionAvecR(non)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean estEncollisionAvecR(Scenario non) {
+        if (non.rectN.overlaps(protagonistes.get(0).rect)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

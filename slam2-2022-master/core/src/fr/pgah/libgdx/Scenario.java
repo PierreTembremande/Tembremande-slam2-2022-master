@@ -9,27 +9,27 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Scenario {
 
-    BitmapFont font = new BitmapFont(Gdx.files.internal("police.fnt"), Gdx.files.internal("police.png"), false);
-    SpriteBatch batch = new SpriteBatch();
-    Texture valider = new Texture("oui.png");
-    Texture refuser = new Texture("non.png");
-    Texture fini = new Texture("chateau.jpg");
+    private BitmapFont font = new BitmapFont(Gdx.files.internal("police.fnt"), Gdx.files.internal("police.png"), false);
+    private SpriteBatch batch = new SpriteBatch();
+    private Texture valider = new Texture("oui.png");
+    private Texture refuser = new Texture("non.png");
+    private Texture fini = new Texture("chateau.jpg");
 
-    int longueurFenetre;
-    int hauteurFenetre;
+    private int longueurFenetre;
+    private int hauteurFenetre;
 
-    int longueurImgO;
-    int hauteurImgO;
+    private int longueurImgO;
+    private int hauteurImgO;
 
-    int longueurImgN;
-    int hauteurImgN;
+    private int longueurImgN;
+    private int hauteurImgN;
 
-    CharSequence histoire;
-    CharSequence instruction;
-    CharSequence passer;
-    CharSequence credit;
-    CharSequence rejouer;
-    CharSequence fin;
+    private CharSequence histoire;
+    private CharSequence instruction;
+    private CharSequence passer;
+    private CharSequence credit;
+    private CharSequence rejouer;
+    private CharSequence fin;
 
     Rectangle rectO;
     Rectangle rectN;
@@ -108,39 +108,5 @@ public class Scenario {
         batch.draw(fini, 0, 0, longueurFenetre, hauteurFenetre);
         font.draw(batch, fin, 200, hauteurFenetre - 40);
         batch.end();
-    }
-
-    public boolean estEncollisionAvecValider(Protagoniste joueur) {
-
-        if (estEncollisionAvecV(joueur)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean estEncollisionAvecV(Protagoniste joueur) {
-        if (rectO.overlaps(joueur.rect)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean estEncollisionAvecRefuser(Protagoniste joueur) {
-
-        if (estEncollisionAvecR(joueur)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean estEncollisionAvecR(Protagoniste joueur) {
-        if (rectN.overlaps(joueur.rect)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

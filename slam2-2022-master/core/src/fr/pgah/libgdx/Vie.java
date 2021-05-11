@@ -6,13 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Vie {
-    Texture img = new Texture("coeur.png");
-    int longueurFenetre;
-    int hauteurFenetre;
-    int longueurImage;
-    int hauteurImage;
-    int[] coordX;
-    int coordY;
+    private Texture img = new Texture("coeur.png");
+    private int hauteurFenetre;
+    private int longueurImage;
+    private int hauteurImage;
+    private int[] coordX;
+    private int coordY;
 
     double reduction;
 
@@ -20,9 +19,7 @@ public class Vie {
 
     public Vie() {
 
-        coordX = new int[Intro.NB_COEUR];
-
-        longueurFenetre = Gdx.graphics.getWidth();
+        coordX = new int[Jeu.nb_coeur];
         hauteurFenetre = Gdx.graphics.getHeight();
 
         reduction = 0.20;
@@ -30,7 +27,7 @@ public class Vie {
         longueurImage = (int) (img.getWidth() * reduction);
         hauteurImage = (int) (img.getHeight() * reduction);
 
-        for (int i = 0; i < Intro.NB_COEUR; i++) {
+        for (int i = 0; i < Jeu.nb_coeur; i++) {
             coordX[i] = i * longueurImage;
         }
 
@@ -39,7 +36,7 @@ public class Vie {
 
     public void dessiner(SpriteBatch batch) {
 
-        for (int i = 0; i < Intro.NB_COEUR; i++) {
+        for (int i = 0; i < Jeu.nb_coeur; i++) {
             batch.draw(img, coordX[i], coordY, longueurImage, hauteurImage);
         }
 

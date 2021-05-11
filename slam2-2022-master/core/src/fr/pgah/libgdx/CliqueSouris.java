@@ -10,22 +10,16 @@ import com.badlogic.gdx.math.Rectangle;
 public class CliqueSouris {
     Rectangle rect;
 
-    Pixmap imag = new Pixmap(Gdx.files.internal("curseur.png"));
+    private Pixmap imag = new Pixmap(Gdx.files.internal("curseur.png"));
 
-    int coordX;
-    int coordY;
+    private int coordX;
+    private int coordY;
 
-    int hauteurImage;
-    int longueurImage;
+    private int hauteurImage;
+    private int longueurImage;
 
-    int longueurFenetre;
-    int hauteurFenetre;
-
-    double facteurTailleSouris;
-
-    CliqueSouris souris;
-
-    Cursor Curseur;
+    private int longueurFenetre;
+    private int hauteurFenetre;
 
     public CliqueSouris() {
 

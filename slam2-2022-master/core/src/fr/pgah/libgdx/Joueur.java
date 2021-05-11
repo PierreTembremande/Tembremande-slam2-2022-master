@@ -94,9 +94,8 @@ public class Joueur extends Protagoniste {
     }
 
     public void dessiner(SpriteBatch batch) {
-        batch.begin();
+        
         batch.draw(img, coordX, coordY, longueurImage, hauteurImage);
-        batch.end();
 
     }
 

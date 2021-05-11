@@ -6,43 +6,41 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Intro extends ApplicationAdapter {
+public class Jeu extends ApplicationAdapter {
 
   SpriteBatch batch;
 
-  static int NB_COEUR;
-  static int NB_ENNEMIES;
+  static int nb_coeur;
+  private static int nb_ennemis;
   static int page;
 
   static CliqueSouris souris;
 
-  int ajouts;
-  int boucle;
+  private int boucle;
 
-  boolean rejouer;
-  boolean verif;
-  boolean jeu;
+  private boolean rejouer;
+  private boolean verif;
+  private boolean jeu;
 
-  Protagonistes protagonistes;
+  private Protagonistes protagonistes;
 
-  Vie[] coeurs;
+  private Vie[] coeurs;
 
- 
-
-  Scenario scenario;
+  private Scenario scenario;
 
   @Override
   public void create() {
 
-    NB_COEUR = 3;
-    NB_ENNEMIES = 7;
+    nb_coeur = 3;
+    nb_ennemis = 7;
 
-    protagonistes = new Protagonistes();
     batch = new SpriteBatch();
+    protagonistes = new Protagonistes(nb_ennemis,batch);
+    
 
     
     protagonistes.initialiserJoueur();
-    protagonistes.initialisationEnnemies();
+    protagonistes.initialisationEnnemies(nb_ennemis);
     initialiserVie();
     initialiserSouris();
     initialiserScenario();
@@ -60,9 +58,9 @@ public class Intro extends ApplicationAdapter {
   }
 
   public void initialiserVie() {
-    coeurs = new Vie[NB_COEUR];
+    coeurs = new Vie[nb_coeur];
 
-    for (int i = 0; i < NB_COEUR; i++) {
+    for (int i = 0; i < nb_coeur; i++) {
       coeurs[i] = new Vie();
     }
   }
@@ -88,7 +86,7 @@ public class Intro extends ApplicationAdapter {
   public void dessin() {
     batch.begin();
 
-    for (int i = 0; i < NB_COEUR; i++) {
+    for (int i = 0; i < nb_coeur; i++) {
       coeurs[i].dessiner(batch);
     }
 
@@ -151,17 +149,18 @@ public class Intro extends ApplicationAdapter {
     if (page == 3) {
       scenario.recommencer();
 
-      protagonistes.protagonistes.get(0).dessiner(batch);
+      protagonistes.dessiner_joueur();
+      
 
-      protagonistes.protagonistes.get(0).majEtat();
+      protagonistes.majEtatJoueur();;
 
-      if (scenario.estEncollisionAvecValider(protagonistes.protagonistes.get(0))
+      if (protagonistes.estEncollisionAvecValider(scenario)
           && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
         rejouer = true;
         boucle = 1;
       }
 
-      if (scenario.estEncollisionAvecRefuser(protagonistes.protagonistes.get(0))
+      if (protagonistes.estEncollisionAvecRefuser(scenario)
           && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
         rejouer = false;
         verif = true;

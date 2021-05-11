@@ -10,8 +10,6 @@ public abstract class Protagoniste {
 
     Rectangle rect;
 
-    SpriteBatch batch;
-
     Texture img;
 
     int vitesse;
