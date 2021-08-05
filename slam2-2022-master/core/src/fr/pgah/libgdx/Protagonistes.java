@@ -17,6 +17,7 @@ public class Protagonistes {
 
     private static int fragile;
 
+    private int resistance;
     private int longueurFenetre;
     private int hauteurFenetre;
     private int duree;
@@ -36,7 +37,7 @@ public class Protagonistes {
         hauteurFenetre = Gdx.graphics.getHeight();
 
         protagonistes = new ArrayList<Protagoniste>();
-        this.batch=batch;
+        this.batch = batch;
         imgvictoire = new Texture("victoire.jpg");
         imgdefaite = new Texture("gameover.png");
 
@@ -80,10 +81,14 @@ public class Protagonistes {
             if (Jeu.souris.clicGauche() && protagoniste.estEncollisionAvec(Jeu.souris)) {
                 indexSprite = protagoniste;
                 fragile = fragile + 1;
+                resistance=Ennemis.GetResistance()-1;
             }
         }
 
-        protagonistes.remove(indexSprite);
+            if(resistance==0){
+                protagonistes.remove(indexSprite);
+            }
+            
 
         if (invincible == false) {
             for (Protagoniste protagoniste : protagonistes) {
@@ -158,14 +163,14 @@ public class Protagonistes {
         return fragile;
     }
 
-    public void dessiner_joueur(){
+    public void dessiner_joueur() {
 
         batch.begin();
         protagonistes.get(0).dessiner(batch);
         batch.end();
     }
 
-    public void majEtatJoueur(){
+    public void majEtatJoueur() {
         protagonistes.get(0).majEtat();
     }
 

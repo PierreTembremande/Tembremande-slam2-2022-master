@@ -3,7 +3,6 @@ package fr.pgah.libgdx;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -55,7 +54,7 @@ public class CliqueSouris {
     }
 
     private boolean appuyeClicGauche() {
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             return true;
         }
         return false;
