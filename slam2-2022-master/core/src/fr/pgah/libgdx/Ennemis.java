@@ -36,8 +36,7 @@ public class Ennemis extends Protagoniste {
         generateurAleatoire = new Random();
         facteurTaille = 0.35;
 
-        resistance=0;
-        armure();
+        resistance = 3;
 
         vitesse = 1;
 
@@ -118,12 +117,12 @@ public class Ennemis extends Protagoniste {
             batch.draw(img, coordX, coordY, longueurImage / 2, hauteurImage / 2, longueurImage, hauteurImage, 1, 1,
                     rotation, 0, 0, img.getWidth(), img.getHeight(), false, false);
 
-        } else if ((Protagonistes.getFragile() >= 8) && (Protagonistes.getFragile() < 16)) {
+        } else if (Protagonistes.getFragile() >= 8 && Protagonistes.getFragile()<16){
             img = new Texture("ennemie1.png");
             batch.draw(img, coordX, coordY, longueurImage / 2, hauteurImage / 2, longueurImage, hauteurImage, 1, 1,
                     rotation, 0, 0, img.getWidth(), img.getHeight(), false, false);
 
-        } else {
+        } else if ((Protagonistes.getFragile() >= 16)) {
             img = new Texture("ennemie2.png");
             batch.draw(img, coordX, coordY, longueurImage / 2, hauteurImage / 2, longueurImage, hauteurImage, 1, 1,
                     rotation, 0, 0, img.getWidth(), img.getHeight(), false, false);
@@ -135,6 +134,7 @@ public class Ennemis extends Protagoniste {
 
         if (estEncollisionAveclui(souris)) {
             return true;
+            
         }
 
         return false;
@@ -148,19 +148,10 @@ public class Ennemis extends Protagoniste {
         }
     }
 
-    public void armure() {
-
-        if (Protagonistes.getFragile() <8){ 
-            resistance= 1;
-        }else if(Protagonistes.getFragile() >= 8 && Protagonistes.getFragile() < 16) {
-            resistance = 2;
-        }else{
-            resistance = 3;
-        }
-    }
-
-    public static int GetResistance() {
+    public int getResistance(){
+        resistance= resistance-CliqueSouris.getDegats();
         return resistance;
     }
+
 
 }

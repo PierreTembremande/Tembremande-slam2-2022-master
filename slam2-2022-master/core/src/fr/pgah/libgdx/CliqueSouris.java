@@ -20,6 +20,8 @@ public class CliqueSouris {
     private int longueurFenetre;
     private int hauteurFenetre;
 
+    private static int degats;
+
     public CliqueSouris() {
 
         longueurFenetre = Gdx.graphics.getWidth();
@@ -31,6 +33,9 @@ public class CliqueSouris {
         coordY = hauteurImage / 2;
 
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(imag, 0, 0));
+
+        degats = 3;
+        
 
     }
 
@@ -98,6 +103,7 @@ public class CliqueSouris {
     public void majEtat() {
         resterDansLeCadreSouris();
         actualiser();
+        degradation();
     }
 
     public boolean estEncollisionAvec(ArrayList<Ennemis> sprites) {
@@ -116,6 +122,18 @@ public class CliqueSouris {
             return false;
         }
 
+    }
+
+    public static int getDegats(){
+        return degats;
+    }
+
+    private void degradation(){
+        if (Protagonistes.getFragile()>=8 && Protagonistes.getFragile()<16){
+            degats=2;
+        }else if(Protagonistes.getFragile()>=16){
+            degats=1;
+        }
     }
 
 }

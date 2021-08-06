@@ -16,6 +16,7 @@ public abstract class Protagoniste {
     int coordX;
     int coordY;
     int pas;
+    int resistance;
 
     int hauteurImage;
     int longueurImage;
@@ -48,9 +49,10 @@ public abstract class Protagoniste {
 
     protected boolean estEncollisionAvecSprite(ArrayList<Protagoniste> protagonistes) {
         return touch;
-
     }
 
-  
+    protected int getResistance(){
+        return resistance;
+    }
 
 }
