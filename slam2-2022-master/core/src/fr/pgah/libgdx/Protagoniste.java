@@ -17,6 +17,8 @@ public abstract class Protagoniste {
     int coordY;
     int pas;
     int resistance;
+    
+    
 
     int hauteurImage;
     int longueurImage;
@@ -41,7 +43,8 @@ public abstract class Protagoniste {
 
     }
 
-    protected void dessinerJoueur(SpriteBatch batch){}
+    protected void dessinerJoueur(SpriteBatch batch) {
+    }
 
     protected boolean estEncollisionAvec(CliqueSouris souris) {
         return hit;
@@ -51,8 +54,6 @@ public abstract class Protagoniste {
         return touch;
     }
 
-    protected int getResistance(){
-        return resistance;
-    }
+    protected void perteDeResistance(){}
 
 }

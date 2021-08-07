@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Ennemis extends Protagoniste {
 
-    private static int resistance;
     private int vitesseRotation;
     private boolean versLaDroite;
     private boolean versLeHaut;
@@ -117,7 +116,7 @@ public class Ennemis extends Protagoniste {
             batch.draw(img, coordX, coordY, longueurImage / 2, hauteurImage / 2, longueurImage, hauteurImage, 1, 1,
                     rotation, 0, 0, img.getWidth(), img.getHeight(), false, false);
 
-        } else if (Protagonistes.getFragile() >= 8 && Protagonistes.getFragile()<16){
+        } else if (Protagonistes.getFragile() >= 8 && Protagonistes.getFragile() < 16) {
             img = new Texture("ennemie1.png");
             batch.draw(img, coordX, coordY, longueurImage / 2, hauteurImage / 2, longueurImage, hauteurImage, 1, 1,
                     rotation, 0, 0, img.getWidth(), img.getHeight(), false, false);
@@ -134,7 +133,7 @@ public class Ennemis extends Protagoniste {
 
         if (estEncollisionAveclui(souris)) {
             return true;
-            
+
         }
 
         return false;
@@ -148,10 +147,13 @@ public class Ennemis extends Protagoniste {
         }
     }
 
-    public int getResistance(){
-        resistance= resistance-CliqueSouris.getDegats();
+    protected  int getResistance(){
         return resistance;
     }
 
+    protected void perteDeResistance() {
+        int degatsAvenir = CliqueSouris.getDegats();
+        resistance = resistance - degatsAvenir;
+    }
 
 }

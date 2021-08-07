@@ -35,7 +35,6 @@ public class CliqueSouris {
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(imag, 0, 0));
 
         degats = 3;
-        
 
     }
 
@@ -124,15 +123,15 @@ public class CliqueSouris {
 
     }
 
-    public static int getDegats(){
+    public static int getDegats() {
         return degats;
     }
 
-    private void degradation(){
-        if (Protagonistes.getFragile()>=8 && Protagonistes.getFragile()<16){
-            degats=2;
-        }else if(Protagonistes.getFragile()>=16){
-            degats=1;
+    private void degradation() {
+        if (Protagonistes.getFragile() >= 8 && Protagonistes.getFragile() < 16) {
+            degats = 2;
+        } else if (Protagonistes.getFragile() >= 16) {
+            degats = 1;
         }
     }
 

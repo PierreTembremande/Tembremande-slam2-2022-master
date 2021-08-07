@@ -16,8 +16,7 @@ public class Protagonistes {
     private Protagoniste indexSprite;
 
     private static int fragile;
-    
-    private int resistanceRestante;
+
     private int longueurFenetre;
     private int hauteurFenetre;
     private int duree;
@@ -81,15 +80,18 @@ public class Protagonistes {
             if (Jeu.souris.clicGauche() && protagoniste.estEncollisionAvec(Jeu.souris)) {
                 indexSprite = protagoniste;
                 fragile = fragile + 1;
-                resistanceRestante= protagoniste.getResistance();
-                
+                protagoniste.perteDeResistance();
+                break;
             }
         }
 
-             if(resistanceRestante<=0){
+        for (Protagoniste protagoniste : protagonistes){
+            if (protagoniste.resistance < 0) {
                 protagonistes.remove(indexSprite);
+                break;
             }
-        
+        }
+
         if (invincible == false) {
             for (Protagoniste protagoniste : protagonistes) {
                 if (protagoniste.estEncollisionAvecSprite(protagonistes)) {
